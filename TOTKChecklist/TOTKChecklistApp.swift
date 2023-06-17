@@ -9,10 +9,12 @@ import SwiftUI
 
 @main
 struct TOTKChecklistApp: App {
+  @StateObject private var modelData = ChecklistModelData()
+  
   var body: some Scene {
     WindowGroup {
       ContentView()
-        .environmentObject(ChecklistModelData())
+        .environmentObject(modelData)
     }
   }
 }
