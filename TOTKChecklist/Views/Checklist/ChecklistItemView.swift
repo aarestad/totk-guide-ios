@@ -10,7 +10,8 @@ struct ChecklistItemView: View {
   
   var body: some View {
     VStack {
-      Text(item.name).font(.title)
+      Text(item.name)
+        .font(.title)
       
       AcquiredButton(isSet: $modelData.checklistItems[landmarkIndex].acquired)
       
