@@ -5,7 +5,7 @@ struct ContentView: View {
   let saveAction: ()->Void
   
   var body: some View {
-    ChecklistList(selectedCategory: .all, selectedRegion: .all)
+    ChecklistList()
       .onChange(of: scenePhase) { phase in
         if phase == .inactive { saveAction() }
       }

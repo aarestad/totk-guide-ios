@@ -4,7 +4,7 @@ struct ChecklistItemView: View {
   @EnvironmentObject var modelData: ChecklistModelData
   var item: ChecklistItem
   
-  var landmarkIndex: Int {
+  var itemIndex: Int {
     modelData.checklistItems.firstIndex(where: { $0.id == item.id })!
   }
   
@@ -15,7 +15,7 @@ struct ChecklistItemView: View {
       Text(item.name)
         .font(.title)
       
-      AcquiredButton(isSet: $modelData.checklistItems[landmarkIndex].acquired)
+      AcquiredButton(isSet: $modelData.checklistItems[itemIndex].acquired)
       
       Spacer()
       

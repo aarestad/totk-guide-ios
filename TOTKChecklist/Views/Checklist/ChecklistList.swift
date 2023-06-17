@@ -2,9 +2,10 @@ import SwiftUI
 
 struct ChecklistList: View {
   @EnvironmentObject var checklistModelData: ChecklistModelData
-  @State var selectedCategory: Category
-  @State var selectedRegion: Region
-
+  
+  @State private var selectedCategory: Category = .all
+  @State private var selectedRegion: Region = .all
+  
   var filteredItems: [ChecklistItem] {
     checklistModelData.checklistItems.filter { item in
       (selectedCategory == .all || item.category == selectedCategory) && (
@@ -37,7 +38,7 @@ struct ChecklistList: View {
 
 struct ChecklistList_Previews: PreviewProvider {
   static var previews: some View {
-    ChecklistList(selectedCategory: .all, selectedRegion: .all)
+    ChecklistList()
       .environmentObject(ChecklistModelData())
   }
 }

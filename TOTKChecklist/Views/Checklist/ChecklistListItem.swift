@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ChecklistListItem: View {
   var item: ChecklistItem
-  @EnvironmentObject var checklistModelData: ChecklistModelData
   
     var body: some View {
       HStack{
@@ -15,15 +14,16 @@ struct ChecklistListItem: View {
         } label: {
           Text(item.name)
         }
-      }
+      }.onLongPressGesture(perform: {
+//        item.acquired.toggle()
+      })
     }
 }
 
 struct ChecklistListItem_Previews: PreviewProvider {
-  static let modelData = ChecklistModelData()
+  static let item = ChecklistModelData().checklistItems[0]
   
     static var previews: some View {
-      ChecklistListItem(item: modelData.checklistItems[0])
-        .environmentObject(modelData)
+      ChecklistListItem(item: item)
     }
 }
