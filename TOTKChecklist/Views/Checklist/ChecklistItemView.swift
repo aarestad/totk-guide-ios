@@ -10,6 +10,8 @@ struct ChecklistItemView: View {
   
   var body: some View {
     VStack {
+      Spacer()
+
       Text(item.name)
         .font(.title)
       
@@ -22,6 +24,8 @@ struct ChecklistItemView: View {
       }
       
       Text(item.info.stripOutHtml())
+      
+      Spacer()
     }
   }
 }
