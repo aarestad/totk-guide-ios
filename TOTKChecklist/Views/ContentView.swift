@@ -2,7 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
   var body: some View {
-    ChecklistList()
+    ChecklistList(selectedCategory: .all, selectedRegion: .all)
   }
 }
 

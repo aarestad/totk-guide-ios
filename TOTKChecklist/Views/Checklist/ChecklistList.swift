@@ -2,11 +2,13 @@ import SwiftUI
 
 struct ChecklistList: View {
   @EnvironmentObject var checklistModelData: ChecklistModelData
-  @State private var selectedCategory: Category = .shrine
-  
+  @State var selectedCategory: Category
+  @State var selectedRegion: Region
+
   var filteredItems: [ChecklistItem] {
     checklistModelData.checklistItems.filter { item in
-      item.category == selectedCategory
+      (selectedCategory == .all || item.category == selectedCategory) && (
+        selectedRegion == .all || item.region == selectedRegion)
     }
   }
   
@@ -16,6 +18,12 @@ struct ChecklistList: View {
         Picker("Category", selection: $selectedCategory) {
           ForEach(Category.allCases) { category in
             Text(category.rawValue).tag(category)
+          }
+        }
+        
+        Picker("Region", selection: $selectedRegion) {
+          ForEach(Region.allCases) { region in
+            Text(region.rawValue).tag(region)
           }
         }
         
@@ -29,7 +37,7 @@ struct ChecklistList: View {
 
 struct ChecklistList_Previews: PreviewProvider {
   static var previews: some View {
-    ChecklistList()
+    ChecklistList(selectedCategory: .all, selectedRegion: .all)
       .environmentObject(ChecklistModelData())
   }
 }

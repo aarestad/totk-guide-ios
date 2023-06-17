@@ -12,9 +12,8 @@ extension Coordinate: CustomStringConvertible {
   }
 }
 
-// regions: {'Lanayru Great Spring', 'Mount Lanayru', 'Sky', 'Eldin Mountains', 'Great Sky Island', 'Gerudo Highlands', 'Faron Grasslands', 'Depths', 'Hyrule Field', 'Hyrule Ridge', 'Gerudo Desert', 'Eldin Canyon', 'Tabantha Frontier', 'East Necluda', 'Akkala Highlands', 'West Necluda', 'Hyrule Castle', 'Lanayru Wetlands', 'Deep Akkala', 'Great Hyrule Forest', 'Lightning Temple', 'Hebra Mountains'}
-
 enum Category: String, CaseIterable, Codable, Identifiable {
+  case all = "All"
   case dragonTear = "Dragon Tear"
   case armor = "Armor"
   case memory = "Memory"
@@ -40,8 +39,32 @@ enum Category: String, CaseIterable, Codable, Identifiable {
   var id: Self { self }
 }
 
-func sortByName(lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
-  return lhs.name < rhs.name
+enum Region: String, CaseIterable, Codable, Identifiable {
+  case all = "All"
+  case lgs = "Lanayru Great Spring"
+  case ml = "Mount Lanayru"
+  case sky = "Sky"
+  case em = "Eldin Mountains"
+  case gsi = "Great Sky Island"
+  case gh = "Gerudo Highlands"
+  case fg = "Faron Grasslands"
+  case depths = "Depths"
+  case hf = "Hyrule Field"
+  case hr = "Hyrule Ridge"
+  case gd = "Gerudo Desert"
+  case ec = "Eldin Canyon"
+  case tf = "Tabantha Frontier"
+  case en = "East Necluda"
+  case ah = "Akkala Highlands"
+  case wn = "West Necluda"
+  case hc = "Hyrule Castle"
+  case lw = "Lanayru Wetlands"
+  case da = "Deep Akkala"
+  case ghf = "Great Hyrule Forest"
+  case lt = "Lightning Temple"
+  case hm = "Hebra Mountains"
+  
+  var id: Self { self }
 }
 
 extension String {
@@ -62,8 +85,12 @@ struct ChecklistItem: Hashable, Codable, Identifiable {
   var id: Int
   var name: String
   var category: Category
-  var region: String
+  var region: Region
   var info: String
   var location: Coordinate?
   var acquired: Bool
+}
+
+func sortByName(lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
+  return lhs.name < rhs.name
 }
