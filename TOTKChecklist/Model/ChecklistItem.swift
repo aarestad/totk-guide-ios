@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 struct Coordinate: Hashable, Codable {
   var x: Int
@@ -91,8 +92,8 @@ struct ChecklistItem: Hashable, Codable, Identifiable {
   var acquired: Bool
 }
 
-func sortByName(lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
-  return lhs.name < rhs.name
+func sortByName(lhs: Binding<ChecklistItem>, rhs: Binding<ChecklistItem>) -> Bool {
+  return lhs.wrappedValue.name < rhs.wrappedValue.name
 }
 
 extension ChecklistItem {

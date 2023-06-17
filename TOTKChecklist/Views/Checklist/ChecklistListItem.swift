@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ChecklistListItem: View {
-  var item: ChecklistItem
+  @Binding var item: ChecklistItem
   
     var body: some View {
       HStack{
@@ -15,7 +15,7 @@ struct ChecklistListItem: View {
           Text(item.name)
         }
       }.onLongPressGesture(perform: {
-//        item.acquired.toggle()
+        item.acquired.toggle()
       })
     }
 }
@@ -24,6 +24,6 @@ struct ChecklistListItem_Previews: PreviewProvider {
   static let item = ChecklistModelData().checklistItems[0]
   
     static var previews: some View {
-      ChecklistListItem(item: item)
+      ChecklistListItem(item: .constant(item))
     }
 }

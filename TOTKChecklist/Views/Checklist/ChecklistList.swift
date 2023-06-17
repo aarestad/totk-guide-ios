@@ -6,8 +6,8 @@ struct ChecklistList: View {
   @State private var selectedCategory: Category = .all
   @State private var selectedRegion: Region = .all
   
-  var filteredItems: [ChecklistItem] {
-    checklistModelData.checklistItems.filter { item in
+  var filteredItems: [Binding<ChecklistItem>] {
+    $checklistModelData.checklistItems.filter { $item in
       (selectedCategory == .all || item.category == selectedCategory) && (
         selectedRegion == .all || item.region == selectedRegion)
     }
@@ -28,8 +28,8 @@ struct ChecklistList: View {
           }
         }
         
-        ForEach(filteredItems.sorted(by:sortByName)) { item in
-          ChecklistListItem(item:item)
+        ForEach(filteredItems.sorted(by:sortByName)) { $item in
+          ChecklistListItem(item:$item)
         }
       }.navigationTitle("Checklist Items")
     }
