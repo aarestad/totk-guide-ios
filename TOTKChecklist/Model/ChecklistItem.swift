@@ -94,3 +94,7 @@ struct ChecklistItem: Hashable, Codable, Identifiable {
 func sortByName(lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
   return lhs.name < rhs.name
 }
+
+extension ChecklistItem {
+  static let sampleData: [ChecklistItem] = initChecklistItems()
+}
