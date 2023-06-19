@@ -24,6 +24,8 @@ struct TOTKChecklistApp: App {
       }
       .environmentObject(modelData)
       .task {
+        let _ = initMapData()
+        
         do {
           try await modelData.load()
         } catch {

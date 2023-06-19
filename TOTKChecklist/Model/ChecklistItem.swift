@@ -13,7 +13,8 @@ extension Coordinate: CustomStringConvertible {
   }
 }
 
-enum Category: String, CaseIterable, Codable, Identifiable {
+@available(*, deprecated)
+enum OldCategory: String, CaseIterable, Codable, Identifiable {
   case all = "All"
   case dt = "Dragon Tear"
   case a = "Armor"
@@ -40,7 +41,8 @@ enum Category: String, CaseIterable, Codable, Identifiable {
   var id: Self { self }
 }
 
-enum Region: String, CaseIterable, Codable, Identifiable {
+@available(*, deprecated)
+enum OldRegion: String, CaseIterable, Codable, Identifiable {
   case all = "All"
   case lgs = "Lanayru Great Spring"
   case ml = "Mount Lanayru"
@@ -85,8 +87,8 @@ extension String {
 struct ChecklistItem: Hashable, Codable, Identifiable {
   var id: Int
   var name: String
-  var category: Category
-  var region: Region
+  var category: OldCategory
+  var region: OldRegion
   var info: String
   var location: Coordinate?
   var acquired: Bool

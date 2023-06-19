@@ -3,8 +3,8 @@ import SwiftUI
 struct ChecklistList: View {
   @EnvironmentObject var checklistModelData: ChecklistModelData
   
-  @State private var selectedCategory: Category = .all
-  @State private var selectedRegion: Region = .all
+  @State private var selectedCategory: OldCategory = .all
+  @State private var selectedRegion: OldRegion = .all
   
   var filteredItems: [Binding<ChecklistItem>] {
     $checklistModelData.checklistItems.filter { $item in
@@ -17,13 +17,13 @@ struct ChecklistList: View {
     NavigationView {
       List {
         Picker("Category", selection: $selectedCategory) {
-          ForEach(Category.allCases) { category in
+          ForEach(OldCategory.allCases) { category in
             Text(category.rawValue).tag(category)
           }
         }
         
         Picker("Region", selection: $selectedRegion) {
-          ForEach(Region.allCases) { region in
+          ForEach(OldRegion.allCases) { region in
             Text(region.rawValue).tag(region)
           }
         }

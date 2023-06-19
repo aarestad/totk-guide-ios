@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		590050982A40CC6600DF3DF9 /* Decodable+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590050972A40CC6600DF3DF9 /* Decodable+Empty.swift */; };
+		591853152A40B10F0056E7DE /* map_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 591853142A40B10F0056E7DE /* map_data.json */; };
+		591853172A40B14E0056E7DE /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591853162A40B14E0056E7DE /* Group.swift */; };
+		591853192A40B1A70056E7DE /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591853182A40B1A70056E7DE /* Category.swift */; };
+		5918531B2A40B4620056E7DE /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5918531A2A40B4620056E7DE /* Region.swift */; };
+		5918531D2A40B5110056E7DE /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5918531C2A40B5110056E7DE /* Location.swift */; };
+		5918531F2A40B73F0056E7DE /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5918531E2A40B73F0056E7DE /* Media.swift */; };
+		591853212A40B8B40056E7DE /* MapData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591853202A40B8B40056E7DE /* MapData.swift */; };
 		592769E92A3D1B5200DE27CD /* TOTKChecklistApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592769E82A3D1B5200DE27CD /* TOTKChecklistApp.swift */; };
 		592769EB2A3D1B5200DE27CD /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 592769EA2A3D1B5200DE27CD /* ContentView.swift */; };
 		592769ED2A3D1B5200DE27CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 592769EC2A3D1B5200DE27CD /* Assets.xcassets */; };
@@ -21,6 +29,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		590050972A40CC6600DF3DF9 /* Decodable+Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decodable+Empty.swift"; sourceTree = "<group>"; };
+		591853142A40B10F0056E7DE /* map_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map_data.json; sourceTree = "<group>"; };
+		591853162A40B14E0056E7DE /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
+		591853182A40B1A70056E7DE /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
+		5918531A2A40B4620056E7DE /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		5918531C2A40B5110056E7DE /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		5918531E2A40B73F0056E7DE /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
+		591853202A40B8B40056E7DE /* MapData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapData.swift; sourceTree = "<group>"; };
 		592769E52A3D1B5200DE27CD /* TOTKChecklist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TOTKChecklist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		592769E82A3D1B5200DE27CD /* TOTKChecklistApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TOTKChecklistApp.swift; sourceTree = "<group>"; };
 		592769EA2A3D1B5200DE27CD /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -87,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				592769F72A3D1B7600DE27CD /* checklist_items_init.json */,
+				591853142A40B10F0056E7DE /* map_data.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -96,6 +113,13 @@
 			children = (
 				592769FB2A3D1B9300DE27CD /* ChecklistItem.swift */,
 				592769FA2A3D1B9300DE27CD /* ChecklistModelData.swift */,
+				591853162A40B14E0056E7DE /* Group.swift */,
+				591853182A40B1A70056E7DE /* Category.swift */,
+				5918531A2A40B4620056E7DE /* Region.swift */,
+				5918531C2A40B5110056E7DE /* Location.swift */,
+				5918531E2A40B73F0056E7DE /* Media.swift */,
+				591853202A40B8B40056E7DE /* MapData.swift */,
+				590050972A40CC6600DF3DF9 /* Decodable+Empty.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -186,6 +210,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				591853152A40B10F0056E7DE /* map_data.json in Resources */,
 				592769F82A3D1B7600DE27CD /* checklist_items_init.json in Resources */,
 				592769F02A3D1B5200DE27CD /* Preview Assets.xcassets in Resources */,
 				592769ED2A3D1B5200DE27CD /* Assets.xcassets in Resources */,
@@ -199,13 +224,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				591853172A40B14E0056E7DE /* Group.swift in Sources */,
+				591853192A40B1A70056E7DE /* Category.swift in Sources */,
 				592769FC2A3D1B9300DE27CD /* ChecklistModelData.swift in Sources */,
+				591853212A40B8B40056E7DE /* MapData.swift in Sources */,
 				59276A012A3D1BDE00DE27CD /* ChecklistList.swift in Sources */,
 				592769EB2A3D1B5200DE27CD /* ContentView.swift in Sources */,
 				592769E92A3D1B5200DE27CD /* TOTKChecklistApp.swift in Sources */,
 				592769FD2A3D1B9300DE27CD /* ChecklistItem.swift in Sources */,
+				5918531B2A40B4620056E7DE /* Region.swift in Sources */,
 				59276A082A3D4C8600DE27CD /* ChecklistItemView.swift in Sources */,
+				590050982A40CC6600DF3DF9 /* Decodable+Empty.swift in Sources */,
 				59276A052A3D492B00DE27CD /* AcquiredButton.swift in Sources */,
+				5918531F2A40B73F0056E7DE /* Media.swift in Sources */,
+				5918531D2A40B5110056E7DE /* Location.swift in Sources */,
 				59276A0A2A3D505600DE27CD /* ChecklistListItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
