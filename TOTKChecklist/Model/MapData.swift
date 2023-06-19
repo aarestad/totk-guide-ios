@@ -6,6 +6,8 @@ struct MapData {
   let categories: [Category]
   let regions: [Region]
   let locations: [Location]
+  
+  fileprivate static var mapData: MapData?
 }
 
 private struct MapDataSource: Decodable {
@@ -57,7 +59,7 @@ extension Group {
 
 extension Region {
   fileprivate static func convert(from source: RegionJSON, regions: [RegionJSON]) throws -> Region {
-    let region = try Region.empty()
+    let region = Region.empty()
     region.id = source.id
     region.title = source.title
     
@@ -87,7 +89,7 @@ extension Location {
     region = regions.first { $0.id == source.region_id }!
     category = categories.first { $0.id == source.category_id }!
     title = source.title
-    description = AttributedString(source.description ?? "")
+    description = try! AttributedString(markdown: source.description ?? "")
     latitude = Double(source.latitude) ?? 0
     longitude = Double(source.longitude) ?? 0
     media = source.media
@@ -97,8 +99,14 @@ extension Location {
 extension MapData {
   fileprivate init(from source: MapDataSource) throws {
     let parsedGroups = source.groups.map { Group.init(from: $0 ) }
-    let parsedRegions = try source.regions.map { try Region.convert(from:$0, regions: source.regions) }
-    let parsedCategories = source.categories.values.map { Category.init(from: $0, groups: parsedGroups) }
+    var parsedRegions = try source.regions.map { try Region.convert(from:$0, regions: source.regions) }
+    var parsedCategories = source.categories.values.map { Category.init(from: $0, groups: parsedGroups) }
+    
+    parsedRegions.sort { $0.title < $1.title }
+    parsedCategories.sort { $0.title < $1.title }
+    
+    parsedRegions.insert(Region.all, at:0)
+    parsedCategories.insert(Category.all, at:0)
     
     groups = parsedGroups
     categories = parsedCategories
@@ -108,24 +116,28 @@ extension MapData {
 }
 
 func initMapData() -> MapData {
-  let filename = "map_data.json"
-  let data: Data
-  
-  guard let file = Bundle.main.url(forResource: filename, withExtension: nil) else {
-    fatalError("Couldn't find \(filename) in main bundle.")
+  if MapData.mapData == nil {
+    let filename = "map_data.json"
+    let data: Data
+    
+    guard let file = Bundle.main.url(forResource: filename, withExtension: nil) else {
+      fatalError("Couldn't find \(filename) in main bundle.")
+    }
+    
+    do {
+      data = try Data(contentsOf: file)
+    } catch {
+      fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
+    }
+    
+    do {
+      let decoder = JSONDecoder()
+      let decoded = try decoder.decode(MapDataSource.self, from: data)
+      MapData.mapData = try MapData.init(from:decoded)
+    } catch {
+      fatalError("Couldn't parse \(filename) as \(MapData.self):\n\(error)")
+    }
   }
   
-  do {
-    data = try Data(contentsOf: file)
-  } catch {
-    fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
-  }
-  
-  do {
-    let decoder = JSONDecoder()
-    let decoded = try decoder.decode(MapDataSource.self, from: data)
-    return try MapData.init(from:decoded)
-  } catch {
-    fatalError("Couldn't parse \(filename) as \(MapData.self):\n\(error)")
-  }
+  return MapData.mapData!
 }

@@ -3,8 +3,12 @@
 import Foundation
 
 extension Decodable {
-  public static func empty() throws -> Self {
-    return try Self(from: EmptyDecoder())
+  public static func empty() -> Self {
+    do {
+      return try Self(from: EmptyDecoder())
+    } catch {
+      fatalError("can't create an empty \(self.self)!")
+    }
   }
 }
 
@@ -41,7 +45,7 @@ private class EmptyDecoder: Decoder {
     }
     
     func decode<T: Decodable>(_ type: T.Type, forKey key: Key) throws -> T {
-      return try T.empty()
+      return T.empty()
     }
     
     func nestedContainer<NestedKey: CodingKey>(keyedBy type: NestedKey.Type, forKey key: Key) throws -> KeyedDecodingContainer<NestedKey> {
@@ -74,7 +78,7 @@ private class EmptyDecoder: Decoder {
     }
     
     mutating func decode<T: Decodable>(_ type: T.Type) throws -> T {
-      return try T.empty()
+      return T.empty()
     }
     
     mutating func nestedContainer<NestedKey: CodingKey>(keyedBy type: NestedKey.Type) throws -> KeyedDecodingContainer<NestedKey> {
@@ -110,6 +114,6 @@ private class EmptyDecoder: Decoder {
     func decode(_ type: UInt16.Type) throws -> UInt16 { return 0 }
     func decode(_ type: UInt32.Type) throws -> UInt32 { return 0 }
     func decode(_ type: UInt64.Type) throws -> UInt64 { return 0 }
-    func decode<T: Decodable>(_ type: T.Type) throws -> T { return try T.empty() }
+    func decode<T: Decodable>(_ type: T.Type) throws -> T { return T.empty() }
   }
 }

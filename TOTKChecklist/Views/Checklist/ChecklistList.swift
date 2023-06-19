@@ -3,13 +3,13 @@ import SwiftUI
 struct ChecklistList: View {
   @EnvironmentObject var checklistModelData: ChecklistModelData
   
-  @State private var selectedCategory: OldCategory = .all
-  @State private var selectedRegion: OldRegion = .all
+  @State private var selectedCategory: Category = .all
+  @State private var selectedRegion: Region = .all
   
   var filteredItems: [Binding<ChecklistItem>] {
     $checklistModelData.checklistItems.filter { $item in
-      (selectedCategory == .all || item.category == selectedCategory) && (
-        selectedRegion == .all || item.region == selectedRegion)
+      (selectedCategory == .all || $item.location.wrappedValue.category == selectedCategory) && (
+        selectedRegion == .all || $item.location.wrappedValue.region == selectedRegion)
     }
   }
   
@@ -17,19 +17,19 @@ struct ChecklistList: View {
     NavigationView {
       List {
         Picker("Category", selection: $selectedCategory) {
-          ForEach(OldCategory.allCases) { category in
-            Text(category.rawValue).tag(category)
+          ForEach(checklistModelData.mapData.categories) { category in
+            Text(try! AttributedString(markdown: category.title)).tag(category)
           }
         }
         
         Picker("Region", selection: $selectedRegion) {
-          ForEach(OldRegion.allCases) { region in
-            Text(region.rawValue).tag(region)
+          ForEach(checklistModelData.mapData.regions) { region in
+            Text(try! AttributedString(markdown: region.title)).tag(region)
           }
         }
         
-        ForEach(filteredItems.sorted{ $0.wrappedValue.name < $1.wrappedValue.name}) { $item in
-          ChecklistListItem(item:$item)
+        ForEach(filteredItems) { item in
+          ChecklistListItem(item:item)
         }
       }.navigationTitle("Checklist Items")
     }

@@ -13,7 +13,7 @@ struct ChecklistListItem: View {
         NavigationLink {
           ChecklistItemView(item: item)
         } label: {
-          Text(item.name)
+          Text(item.location.title)
         }
       }.onLongPressGesture(perform: {
         item.acquired.toggle()

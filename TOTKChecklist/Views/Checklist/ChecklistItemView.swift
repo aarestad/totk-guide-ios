@@ -12,18 +12,16 @@ struct ChecklistItemView: View {
     VStack {
       Spacer()
 
-      Text(item.name)
+      Text(item.location.title)
         .font(.title)
       
       AcquiredButton(isSet: $modelData.checklistItems[itemIndex].acquired)
       
       Spacer()
       
-      if let loc = item.location {
-        Text("Location: \(loc.description)")
-      }
+      Text("Location: (\(item.location.latitude), \(item.location.longitude))")
       
-      Text(item.info.stripOutHtml())
+      Text(item.location.description)
       
       Spacer()
     }
