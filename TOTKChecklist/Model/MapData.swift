@@ -1,17 +1,24 @@
 import Foundation
+import SwiftUI
 
 struct MapData {
-  var groups: [Group] = []
-  var categories: [Category] = []
-  var regions: [Region] = []
-  var locations: [Location] = []
+  let groups: [Group]
+  let categories: [Category]
+  let regions: [Region]
+  let locations: [Location]
 }
 
 private struct MapDataSource: Decodable {
-  var groups: [Group]
+  var groups: [GroupJSON]
   var categories: [String:CategoryJSON]
   var regions: [RegionJSON]
   var locations: [LocationJSON]
+}
+
+private struct GroupJSON: Decodable {
+  var id: Int
+  var title: String
+  var color: String
 }
 
 private struct RegionJSON: Decodable {
@@ -40,13 +47,22 @@ private struct LocationJSON: Decodable {
   var media: [Media]
 }
 
+extension Group {
+  fileprivate init(from source: GroupJSON) {
+    id = source.id
+    title = source.title
+    color = Color(source.color)
+  }
+}
+
 extension Region {
-  fileprivate static func convert(from source: RegionJSON, regions: [Int:RegionJSON]) throws -> Region {
+  fileprivate static func convert(from source: RegionJSON, regions: [RegionJSON]) throws -> Region {
     let region = try Region.empty()
     region.id = source.id
     region.title = source.title
     
-    if let regionJSON = regions[source.parent_region_id ?? -1] {
+    if let parentRegionID = source.parent_region_id {
+      let regionJSON = regions.first { $0.id == parentRegionID }!
       region.parentRegion = try convert(from: regionJSON, regions: regions)
     }
     
@@ -55,9 +71,9 @@ extension Region {
 }
 
 extension Category {
-  fileprivate init(from source: CategoryJSON, groups: [Int:Group]) {
+  fileprivate init(from source: CategoryJSON, groups: [Group]) {
     id = source.id
-    group = groups[source.group_id]!
+    group = groups.first{$0.id == source.group_id}!
     title = source.title
     icon = source.icon
     info = source.info ?? ""
@@ -80,13 +96,14 @@ extension Location {
 
 extension MapData {
   fileprivate init(from source: MapDataSource) throws {
-    let groupsDict = Dictionary(uniqueKeysWithValues: source.groups.map { (Int(exactly: $0.id)!, $0) })
-    let regionsDict = Dictionary(uniqueKeysWithValues: source.regions.map { (Int(exactly: $0.id)!, $0) })
+    let parsedGroups = source.groups.map { Group.init(from: $0 ) }
+    let parsedRegions = try source.regions.map { try Region.convert(from:$0, regions: source.regions) }
+    let parsedCategories = source.categories.values.map { Category.init(from: $0, groups: parsedGroups) }
     
-    groups = source.groups
-    categories = source.categories.values.map { Category.init(from: $0, groups: groupsDict) }
-    regions = try source.regions.map { try Region.convert(from:$0, regions: regionsDict) }
-    locations = source.locations.map { Location.init(from: $0, regions: regions, categories: categories) }
+    groups = parsedGroups
+    categories = parsedCategories
+    regions = parsedRegions
+    locations = source.locations.map { Location.init(from: $0, regions: parsedRegions, categories: parsedCategories) }
   }
 }
 

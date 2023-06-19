@@ -94,10 +94,6 @@ struct ChecklistItem: Hashable, Codable, Identifiable {
   var acquired: Bool
 }
 
-func sortByName(lhs: Binding<ChecklistItem>, rhs: Binding<ChecklistItem>) -> Bool {
-  return lhs.wrappedValue.name < rhs.wrappedValue.name
-}
-
 extension ChecklistItem {
   static let sampleData: [ChecklistItem] = initChecklistItems()
 }

@@ -28,7 +28,7 @@ struct ChecklistList: View {
           }
         }
         
-        ForEach(filteredItems.sorted(by:sortByName)) { $item in
+        ForEach(filteredItems.sorted{ $0.wrappedValue.name < $1.wrappedValue.name}) { $item in
           ChecklistListItem(item:$item)
         }
       }.navigationTitle("Checklist Items")
