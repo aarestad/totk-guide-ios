@@ -89,7 +89,10 @@ extension Location {
     region = regions.first { $0.id == source.region_id }!
     category = categories.first { $0.id == source.category_id }!
     title = source.title
-    description = try! AttributedString(markdown: source.description ?? "")
+    description = try! AttributedString(
+      markdown: source.description ?? "",
+      options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+    )
     latitude = Double(source.latitude) ?? 0
     longitude = Double(source.longitude) ?? 0
     media = source.media
