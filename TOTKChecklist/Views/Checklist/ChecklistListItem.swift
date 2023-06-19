@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ChecklistListItem: View {
   @Binding var item: ChecklistItem
+  static private var impactMed = UIImpactFeedbackGenerator(style: .medium)
   
     var body: some View {
       HStack{
@@ -16,6 +17,7 @@ struct ChecklistListItem: View {
         }
       }.onLongPressGesture(perform: {
         item.acquired.toggle()
+        ChecklistListItem.impactMed.impactOccurred()
       })
     }
 }
