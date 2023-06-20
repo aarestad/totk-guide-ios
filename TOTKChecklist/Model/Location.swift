@@ -1,5 +1,14 @@
 import Foundation
 
+struct Coordinate: Hashable, Codable, CustomStringConvertible {
+  var description: String {
+    "(\(lng), \(lat))"
+  }
+  
+  var lng: Double
+  var lat: Double
+}
+
 class Location: Identifiable, Codable {
   init(
     id: Int,
@@ -19,8 +28,7 @@ class Location: Identifiable, Codable {
       markdown: description,
       options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
     )
-    self.latitude = latitude
-    self.longitude = longitude
+    self.coordinate = Coordinate(lng:latitude, lat:longitude)
     self.media = media
   }
   
@@ -29,7 +37,6 @@ class Location: Identifiable, Codable {
   var category: Category
   var title: AttributedString
   var description: AttributedString
-  var latitude: Double
-  var longitude: Double
+  var coordinate: Coordinate
   var media: [Media]
 }

@@ -80,11 +80,11 @@
 			isa = PBXGroup;
 			children = (
 				592769E82A3D1B5200DE27CD /* TOTKChecklistApp.swift */,
-				592769EC2A3D1B5200DE27CD /* Assets.xcassets */,
 				592769F92A3D1B8000DE27CD /* Model */,
-				592769EE2A3D1B5200DE27CD /* Preview Content */,
-				592769F62A3D1B5B00DE27CD /* Resources */,
 				592769FE2A3D1B9A00DE27CD /* Views */,
+				592769F62A3D1B5B00DE27CD /* Resources */,
+				592769EE2A3D1B5200DE27CD /* Preview Content */,
+				592769EC2A3D1B5200DE27CD /* Assets.xcassets */,
 			);
 			path = TOTKChecklist;
 			sourceTree = "<group>";

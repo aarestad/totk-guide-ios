@@ -19,7 +19,7 @@ struct ChecklistItemView: View {
       
       Spacer()
       
-      Text("Location: (\(item.location.latitude), \(item.location.longitude))")
+      Text("Location: \(item.location.coordinate.description)")
       
       Text(item.location.description)
       

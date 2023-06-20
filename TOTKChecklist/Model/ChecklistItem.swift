@@ -1,18 +1,6 @@
 import Foundation
 import SwiftUI
 
-struct Coordinate: Hashable, Codable {
-  var x: Int
-  var y: Int
-  var z: Int
-}
-
-extension Coordinate: CustomStringConvertible {
-  var description: String {
-    "(\(x), \(y), \(z))"
-  }
-}
-
 struct ChecklistItem: Codable, Identifiable, Hashable {
   static func == (lhs: ChecklistItem, rhs: ChecklistItem) -> Bool {
     lhs.id == rhs.id
