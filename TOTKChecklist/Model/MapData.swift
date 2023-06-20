@@ -52,11 +52,11 @@ private struct LocationJSON: Decodable {
 extension Group {
   fileprivate static func convert(from source: GroupJSON) -> Group {
     let group = Group.empty()
-    
+
     group.id = source.id
     group.title = source.title
-    group.color = Color(source.color)
-    
+    group.color = Color(hex:source.color)
+
     return group
   }
 }
