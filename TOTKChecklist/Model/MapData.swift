@@ -50,10 +50,14 @@ private struct LocationJSON: Decodable {
 }
 
 extension Group {
-  fileprivate init(from source: GroupJSON) {
-    id = source.id
-    title = source.title
-    color = Color(source.color)
+  fileprivate static func convert(from source: GroupJSON) -> Group {
+    let group = Group.empty()
+    
+    group.id = source.id
+    group.title = source.title
+    group.color = Color(source.color)
+    
+    return group
   }
 }
 
@@ -73,37 +77,44 @@ extension Region {
 }
 
 extension Category {
-  fileprivate init(from source: CategoryJSON, groups: [Group]) {
-    id = source.id
-    group = groups.first{$0.id == source.group_id}!
-    title = source.title
-    icon = source.icon
-    info = source.info ?? ""
-    template = source.template ?? ""
+  fileprivate static func convert(from source: CategoryJSON, groups: [Group]) -> Category {
+    let category = Category.empty()
+    
+    category.id = source.id
+    category.group = groups.first{$0.id == source.group_id}!
+    category.title = source.title
+    category.icon = source.icon
+    category.info = source.info ?? ""
+    category.template = source.template ?? ""
+    
+    return category
   }
 }
 
 extension Location {
-  fileprivate init(from source: LocationJSON, regions: [Region], categories: [Category]) {
-    id = source.id
-    region = regions.first { $0.id == source.region_id }!
-    category = categories.first { $0.id == source.category_id }!
-    title = source.title
-    description = try! AttributedString(
+  fileprivate static func convert(from source: LocationJSON, regions: [Region], categories: [Category]) -> Location {
+    let location = Location.empty()
+    location.id = source.id
+    location.region = regions.first { $0.id == source.region_id }!
+    location.category = categories.first { $0.id == source.category_id }!
+    location.title = source.title
+    location.description = try! AttributedString(
       markdown: source.description ?? "",
       options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
     )
-    latitude = Double(source.latitude) ?? 0
-    longitude = Double(source.longitude) ?? 0
-    media = source.media
+    location.latitude = Double(source.latitude) ?? 0
+    location.longitude = Double(source.longitude) ?? 0
+    location.media = source.media
+    
+    return location
   }
 }
 
 extension MapData {
   fileprivate init(from source: MapDataSource) throws {
-    let parsedGroups = source.groups.map { Group.init(from: $0 ) }
+    let parsedGroups = source.groups.map { Group.convert(from: $0 ) }
     var parsedRegions = try source.regions.map { try Region.convert(from:$0, regions: source.regions) }
-    var parsedCategories = source.categories.values.map { Category.init(from: $0, groups: parsedGroups) }
+    var parsedCategories = source.categories.values.map { Category.convert(from: $0, groups: parsedGroups) }
     
     parsedRegions.sort { $0.title < $1.title }
     parsedCategories.sort { $0.title < $1.title }
@@ -114,7 +125,7 @@ extension MapData {
     groups = parsedGroups
     categories = parsedCategories
     regions = parsedRegions
-    locations = source.locations.map { Location.init(from: $0, regions: parsedRegions, categories: parsedCategories) }
+    locations = source.locations.map { Location.convert(from: $0, regions: parsedRegions, categories: parsedCategories) }
   }
 }
 

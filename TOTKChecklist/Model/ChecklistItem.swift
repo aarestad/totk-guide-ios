@@ -33,5 +33,5 @@ struct ChecklistItem: Codable, Identifiable, Hashable {
 }
 
 extension ChecklistItem {
-  static let sampleData: [ChecklistItem] = initChecklistItems(mapData: initMapData())
+  static let originalData: [ChecklistItem] = initChecklistItems(mapData: initMapData())
 }

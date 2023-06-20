@@ -1,6 +1,6 @@
 import Foundation
 
-struct Media: Identifiable, Codable {
+class Media: Identifiable, Codable {
   var id: Int
   var url: URL
   var type: String

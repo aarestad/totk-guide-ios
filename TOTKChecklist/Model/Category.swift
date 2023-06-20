@@ -1,6 +1,6 @@
 import Foundation
 
-struct Category: Identifiable, Codable, Hashable {
+class Category: Identifiable, Codable, Hashable {
   static func == (lhs: Category, rhs: Category) -> Bool {
     lhs.id == rhs.id
   }

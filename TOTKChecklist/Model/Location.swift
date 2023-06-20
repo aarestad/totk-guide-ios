@@ -1,6 +1,6 @@
 import Foundation
 
-struct Location: Identifiable, Codable {
+class Location: Identifiable, Codable {
   var id: Int
   var region: Region
   var category: Category

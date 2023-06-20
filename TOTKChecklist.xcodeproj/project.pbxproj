@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		590050982A40CC6600DF3DF9 /* Decodable+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590050972A40CC6600DF3DF9 /* Decodable+Empty.swift */; };
+		590F052B2A4126D6008EECAE /* Color+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590F052A2A4126D6008EECAE /* Color+Codable.swift */; };
 		591853152A40B10F0056E7DE /* map_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 591853142A40B10F0056E7DE /* map_data.json */; };
 		591853172A40B14E0056E7DE /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591853162A40B14E0056E7DE /* Group.swift */; };
 		591853192A40B1A70056E7DE /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591853182A40B1A70056E7DE /* Category.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		590050972A40CC6600DF3DF9 /* Decodable+Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decodable+Empty.swift"; sourceTree = "<group>"; };
+		590F052A2A4126D6008EECAE /* Color+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Codable.swift"; sourceTree = "<group>"; };
 		591853142A40B10F0056E7DE /* map_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map_data.json; sourceTree = "<group>"; };
 		591853162A40B14E0056E7DE /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		591853182A40B1A70056E7DE /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				5918531E2A40B73F0056E7DE /* Media.swift */,
 				591853202A40B8B40056E7DE /* MapData.swift */,
 				590050972A40CC6600DF3DF9 /* Decodable+Empty.swift */,
+				590F052A2A4126D6008EECAE /* Color+Codable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			files = (
 				591853172A40B14E0056E7DE /* Group.swift in Sources */,
 				591853192A40B1A70056E7DE /* Category.swift in Sources */,
+				590F052B2A4126D6008EECAE /* Color+Codable.swift in Sources */,
 				592769FC2A3D1B9300DE27CD /* ChecklistModelData.swift in Sources */,
 				591853212A40B8B40056E7DE /* MapData.swift in Sources */,
 				59276A012A3D1BDE00DE27CD /* ChecklistList.swift in Sources */,

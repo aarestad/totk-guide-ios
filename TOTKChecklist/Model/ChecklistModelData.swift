@@ -2,7 +2,7 @@ import Foundation
 
 @MainActor
 final class ChecklistModelData: ObservableObject {
-  @Published var checklistItems: [ChecklistItem] = ChecklistItem.sampleData
+  @Published var checklistItems: [ChecklistItem] = ChecklistItem.originalData
   
   let mapData = initMapData()
   
@@ -19,7 +19,7 @@ final class ChecklistModelData: ObservableObject {
       let fileURL = try Self.fileURL()
       
       guard let data = try? Data(contentsOf: fileURL) else {
-        return initChecklistItems(mapData: initMapData())
+        return ChecklistItem.originalData
       }
       
       return try JSONDecoder().decode([ChecklistItem].self, from: data)
@@ -40,4 +40,3 @@ final class ChecklistModelData: ObservableObject {
 func initChecklistItems(mapData: MapData) -> [ChecklistItem] {
   return mapData.locations.map { ChecklistItem(location: $0, acquired: false) }
 }
-
