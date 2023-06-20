@@ -3,7 +3,8 @@ A guide to Tears Of The Kingdom, with a checklist
 
 License
 ========
-GPLv3
+Swift code: GPLv3
+Resources below: per the respective authors
 
 Credit
 ======
