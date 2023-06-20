@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		590050982A40CC6600DF3DF9 /* Decodable+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590050972A40CC6600DF3DF9 /* Decodable+Empty.swift */; };
 		590F052B2A4126D6008EECAE /* Color+Codable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590F052A2A4126D6008EECAE /* Color+Codable.swift */; };
 		591853152A40B10F0056E7DE /* map_data.json in Resources */ = {isa = PBXBuildFile; fileRef = 591853142A40B10F0056E7DE /* map_data.json */; };
 		591853172A40B14E0056E7DE /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = 591853162A40B14E0056E7DE /* Group.swift */; };
@@ -29,7 +28,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		590050972A40CC6600DF3DF9 /* Decodable+Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Decodable+Empty.swift"; sourceTree = "<group>"; };
 		590F052A2A4126D6008EECAE /* Color+Codable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Codable.swift"; sourceTree = "<group>"; };
 		591853142A40B10F0056E7DE /* map_data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = map_data.json; sourceTree = "<group>"; };
 		591853162A40B14E0056E7DE /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -118,7 +116,6 @@
 				5918531C2A40B5110056E7DE /* Location.swift */,
 				5918531E2A40B73F0056E7DE /* Media.swift */,
 				591853202A40B8B40056E7DE /* MapData.swift */,
-				590050972A40CC6600DF3DF9 /* Decodable+Empty.swift */,
 				590F052A2A4126D6008EECAE /* Color+Codable.swift */,
 			);
 			path = Model;
@@ -234,7 +231,6 @@
 				592769FD2A3D1B9300DE27CD /* ChecklistItem.swift in Sources */,
 				5918531B2A40B4620056E7DE /* Region.swift in Sources */,
 				59276A082A3D4C8600DE27CD /* ChecklistItemView.swift in Sources */,
-				590050982A40CC6600DF3DF9 /* Decodable+Empty.swift in Sources */,
 				59276A052A3D492B00DE27CD /* AcquiredButton.swift in Sources */,
 				5918531F2A40B73F0056E7DE /* Media.swift in Sources */,
 				5918531D2A40B5110056E7DE /* Location.swift in Sources */,

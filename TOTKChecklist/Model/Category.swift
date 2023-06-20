@@ -1,6 +1,19 @@
 import Foundation
 
 class Category: Identifiable, Codable, Hashable {
+  init(id: Int, group: Group? = nil, title: String, icon: String, info: String, template: String) {
+    self.id = id
+    self.group = group
+    self.title = try! AttributedString(markdown: title)
+    self.icon = icon
+    self.info = try! AttributedString(
+      markdown: info,
+      options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+    )
+    self.template = template
+  }
+  
+  
   static func == (lhs: Category, rhs: Category) -> Bool {
     lhs.id == rhs.id
   }
@@ -11,18 +24,10 @@ class Category: Identifiable, Codable, Hashable {
   
   var id: Int
   var group: Group?
-  var title: String
+  var title: AttributedString
   var icon: String
-  var info: String
+  var info: AttributedString
   var template: String
-  
-  static let all: Category = try! JSONDecoder().decode(Category.self, from: """
-{
-  "id": -1,
-  "title": "**All**",
-  "icon": "",
-  "info": "",
-  "template": ""
-}
-""".data(using: .utf8)!)
+
+  static let all: Category = Category.init(id:-1, title:"", icon:"", info:"", template:"")
 }

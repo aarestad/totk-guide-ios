@@ -18,13 +18,13 @@ struct ChecklistList: View {
       List {
         Picker("Category", selection: $selectedCategory) {
           ForEach(checklistModelData.mapData.categories) { category in
-            Text(try! AttributedString(markdown: category.title)).tag(category)
+            Text(category.title).tag(category)
           }
         }
         
         Picker("Region", selection: $selectedRegion) {
           ForEach(checklistModelData.mapData.regions) { region in
-            Text(try! AttributedString(markdown: region.title)).tag(region)
+            Text(region.title).tag(region)
           }
         }
         

@@ -50,26 +50,18 @@ private struct LocationJSON: Decodable {
 }
 
 extension Group {
-  fileprivate static func convert(from source: GroupJSON) -> Group {
-    let group = Group.empty()
-
-    group.id = source.id
-    group.title = source.title
-    group.color = Color(hex:source.color)
-
-    return group
+  fileprivate convenience init(from source: GroupJSON) {
+    self.init(id: source.id, title: source.title, color: Color(hex:source.color))
   }
 }
 
 extension Region {
-  fileprivate static func convert(from source: RegionJSON, regions: [RegionJSON]) throws -> Region {
-    let region = Region.empty()
-    region.id = source.id
-    region.title = source.title
+  fileprivate static func convert(from source: RegionJSON, regions: [RegionJSON]) -> Region {
+    let region = Region(id: source.id, title: source.title)
     
     if let parentRegionID = source.parent_region_id {
       let regionJSON = regions.first { $0.id == parentRegionID }!
-      region.parentRegion = try convert(from: regionJSON, regions: regions)
+      region.parentRegion =  convert(from: regionJSON, regions: regions)
     }
     
     return region
@@ -77,47 +69,41 @@ extension Region {
 }
 
 extension Category {
-  fileprivate static func convert(from source: CategoryJSON, groups: [Group]) -> Category {
-    let category = Category.empty()
-    
-    category.id = source.id
-    category.group = groups.first{$0.id == source.group_id}!
-    category.title = source.title
-    category.icon = source.icon
-    category.info = source.info ?? ""
-    category.template = source.template ?? ""
-    
-    return category
+  fileprivate convenience init(from source: CategoryJSON, groups: [Group]) {
+    self.init(
+      id: source.id,
+      group: groups.first{$0.id == source.group_id},
+      title: source.title,
+      icon: source.icon,
+      info: source.info ?? "",
+      template: source.template ?? ""
+    )
   }
 }
 
 extension Location {
-  fileprivate static func convert(from source: LocationJSON, regions: [Region], categories: [Category]) -> Location {
-    let location = Location.empty()
-    location.id = source.id
-    location.region = regions.first { $0.id == source.region_id }!
-    location.category = categories.first { $0.id == source.category_id }!
-    location.title = source.title
-    location.description = try! AttributedString(
-      markdown: source.description ?? "",
-      options: AttributedString.MarkdownParsingOptions(interpretedSyntax: .inlineOnlyPreservingWhitespace)
+  fileprivate convenience init(from source: LocationJSON, regions: [Region], categories: [Category]) {
+    self.init(
+      id: source.id,
+      region: regions.first { $0.id == source.region_id }!,
+      category: categories.first { $0.id == source.category_id }!,
+      title: source.title,
+      description: source.description ?? "",
+      latitude: Double(source.latitude) ?? 0,
+      longitude: Double(source.longitude) ?? 0,
+      media: source.media
     )
-    location.latitude = Double(source.latitude) ?? 0
-    location.longitude = Double(source.longitude) ?? 0
-    location.media = source.media
-    
-    return location
   }
 }
 
 extension MapData {
   fileprivate init(from source: MapDataSource) throws {
-    let parsedGroups = source.groups.map { Group.convert(from: $0 ) }
-    var parsedRegions = try source.regions.map { try Region.convert(from:$0, regions: source.regions) }
-    var parsedCategories = source.categories.values.map { Category.convert(from: $0, groups: parsedGroups) }
+    let parsedGroups = source.groups.map { Group(from: $0 ) }
+    var parsedRegions = source.regions.map { Region.convert(from:$0, regions: source.regions) }
+    var parsedCategories = source.categories.values.map { Category(from: $0, groups: parsedGroups) }
     
-    parsedRegions.sort { $0.title < $1.title }
-    parsedCategories.sort { $0.title < $1.title }
+    parsedRegions.sort { $0.title.description < $1.title.description }
+    parsedCategories.sort { $0.title.description < $1.title.description }
     
     parsedRegions.insert(Region.all, at:0)
     parsedCategories.insert(Category.all, at:0)
@@ -125,7 +111,7 @@ extension MapData {
     groups = parsedGroups
     categories = parsedCategories
     regions = parsedRegions
-    locations = source.locations.map { Location.convert(from: $0, regions: parsedRegions, categories: parsedCategories) }
+    locations = source.locations.map { Location(from: $0, regions: parsedRegions, categories: parsedCategories) }
   }
 }
 
