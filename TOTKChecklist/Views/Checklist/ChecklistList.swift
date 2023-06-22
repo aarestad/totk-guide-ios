@@ -5,11 +5,14 @@ struct ChecklistList: View {
   
   @State private var selectedCategory: Category = .all
   @State private var selectedRegion: Region = .all
+  @State private var hideAcquired = false
   
   var filteredItems: [Binding<ChecklistItem>] {
     $checklistModelData.checklistItems.filter { $item in
       (selectedCategory == .all || $item.location.wrappedValue.category == selectedCategory) && (
-        selectedRegion == .all || $item.location.wrappedValue.region == selectedRegion)
+        selectedRegion == .all || $item.location.wrappedValue.region == selectedRegion) && (
+          !hideAcquired || !$item.acquired.wrappedValue
+        )
     }
   }
   
@@ -26,6 +29,10 @@ struct ChecklistList: View {
           ForEach(checklistModelData.mapData.regions) { region in
             Text(region.title).tag(region)
           }
+        }
+        
+        Toggle(isOn: $hideAcquired) {
+          Text("Hide Acquired")
         }
         
         ForEach(filteredItems) { item in
